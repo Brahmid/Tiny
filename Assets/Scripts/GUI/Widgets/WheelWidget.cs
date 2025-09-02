@@ -29,6 +29,7 @@ namespace GUI.Widgets
 		{
 			[TableList]
 			public List<WheelSegmentConfig> Segments;
+			
 		}
 
 		[SerializeField] private WheelSegmentWidget m_SegmentPrefab;
@@ -92,14 +93,14 @@ namespace GUI.Widgets
 		[Button]
 		public async Task AnimateRotationToSegment(int index)
 		{			
-			float rotationTime = m_RotationTargetTime;
+			float rotationTime = 0;
 			
 			float startAngle = GetCurrentWheelRotationAngle();
             float finalAngle = GetSegmentAngle(index);
 
 
 			float rotationTarget = m_MinRotationCycles * 360 + finalAngle - startAngle + (finalAngle < startAngle ? 360 : 0);
-            while (rotationTime >= m_RotationTargetTime && m_OwnerScreen.IsActiveInStack)
+            while (rotationTime < m_RotationTargetTime && m_OwnerScreen.IsActiveInStack)
 			{
 
 				rotationTime += Time.deltaTime;
