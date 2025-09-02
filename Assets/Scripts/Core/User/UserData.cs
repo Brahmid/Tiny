@@ -2,19 +2,58 @@
 {
 	using System;
 	using Sirenix.OdinInspector;
-	using UnityEngine;
+    using Sirenix.Utilities;
+    using UnityEngine;
 
 	[Serializable]
 	public class UserData
 	{
+        [Serializable]
+        public class UserStatistics
+        {
+            public int BetsCount;
+            public int BetsWin;
+			public double GameTime;		
+					
+            public UserStatistics()
+			{
+                GameTime = 0f;
+                BetsCount = 0;
+                BetsWin = 0;
+            }
+
+			UserStatistics(double time, int betsCount,int betsWin)
+			{
+                GameTime = time;
+				BetsCount = betsCount;
+				BetsWin = betsWin;
+			}
+
+			
+
+            public static UserStatistics operator +(UserStatistics left, UserStatistics right)
+            {
+                return new UserStatistics(
+                        left.GameTime + right.GameTime,
+                        left.BetsCount + right.BetsCount,
+                        left.BetsWin + right.BetsWin
+                        );
+            }
+        }
+
 		// Serialized fields
 		
 		[SerializeField, HideInInspector] private long m_Balance;
 		[SerializeField, HideInInspector] private int m_BetIndex;
 
-		
-		// Public properties (getters)
-		[ShowInInspector, ReadOnly]  public long Balance => m_Balance;
+        //Statistics
+        [SerializeField, HideInInspector] private int m_StartsCount = 0;
+        [SerializeField, HideInInspector] private UserStatistics m_SessionStats = new UserStatistics();
+		[SerializeField, HideInInspector] private UserStatistics m_AllTimeStats = new UserStatistics();
+
+
+        // Public properties (getters)
+        [ShowInInspector, ReadOnly]  public long Balance => m_Balance;
 		[ShowInInspector, ReadOnly]  public int BetIndex => m_BetIndex;
 
 		public bool Dirty { get; private set; }
@@ -90,5 +129,27 @@
 		{
 			Dirty = dirty;
 		}
-	}
+
+        public void LogBet(long bet, int winPercent)
+        {
+            if(winPercent > 0)
+			{
+				m_SessionStats.BetsWin++;
+            }
+            m_SessionStats.BetsCount++;
+        }
+
+        public void Initialize()
+        {
+			m_StartsCount++;
+            m_AllTimeStats = m_AllTimeStats + m_SessionStats;
+			m_SessionStats = new UserStatistics();
+			SetDirty();
+        }
+
+        internal void LogTime()
+        {
+			m_SessionStats.GameTime = Time.realtimeSinceStartupAsDouble;
+        }
+    }
 }

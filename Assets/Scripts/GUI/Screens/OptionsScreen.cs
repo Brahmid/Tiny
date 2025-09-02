@@ -24,8 +24,7 @@
 
 		private void HandleResetUserClick()
 		{
-			// TODO: Reset user data
-			Debug.Log("TODO: Reset UserData");
+			m_Locator.Get<UserService>()?.ResetUser();
 		}
 	}
 }

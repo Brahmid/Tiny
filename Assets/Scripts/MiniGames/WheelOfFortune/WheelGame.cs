@@ -21,14 +21,14 @@
 		}
 
 		public override WheelWidget.WheelSegmentConfig GenerateWinResult()
-		{
-			// TODO: Fix SelectWeightedRandom method, which doesn't use weights at the moment!
+		{			
 			return Settings.WheelConfig.Segments.SelectWeightedRandom(m_Random);
 		}
 
 		public override void ProcessWinResult(long bet, WheelWidget.WheelSegmentConfig winResult)
 		{
 			m_UserData.AddBalance(bet * winResult.WinPercent / 100);
+			m_UserData.LogBet(bet, winResult.WinPercent);
 		}
 	}
 }
