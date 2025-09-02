@@ -9,7 +9,7 @@ namespace GUI.Widgets
 	using Sirenix.OdinInspector;
 	using UnityEngine;
 
-	public class WheelWidget : ScreenWidget
+    public class WheelWidget : ScreenWidget
 	{
 		[Serializable]
 		public class WheelSegmentConfig : IWinResult, IWeightRandomItem
@@ -36,7 +36,10 @@ namespace GUI.Widgets
 		[SerializeField] private Transform m_RotationTransform;
 		[SerializeField] private bool m_Clockwise = true;
 
-		private float m_ArcAngle;
+        [SerializeField] private int m_MinRotationCycles = 2;
+        [SerializeField] float m_RotationTargetTime = 2f;
+
+        private float m_ArcAngle;
 		
 		public List<WheelSegmentWidget> WheelSegments { get; private set; } = new List<WheelSegmentWidget>();
 
@@ -88,21 +91,33 @@ namespace GUI.Widgets
 
 		[Button]
 		public async Task AnimateRotationToSegment(int index)
-		{
-			int minRotationCycles = 2;
-			float rotationTime = 2f;
+		{			
+			float rotationTime = m_RotationTargetTime;
 			
-			// TODO: Create smooth animation of WheelSpinning, with minimal rotation cycles and taking up rotation time.
-			var finalAngle = GetSegmentAngle(index);
-			while (rotationTime > 0 && m_OwnerScreen.IsActiveInStack)
+			float startAngle = GetCurrentWheelRotationAngle();
+            float finalAngle = GetSegmentAngle(index);
+
+
+			float rotationTarget = m_MinRotationCycles * 360 + finalAngle - startAngle + (finalAngle < startAngle ? 360 : 0);
+            while (rotationTime >= m_RotationTargetTime && m_OwnerScreen.IsActiveInStack)
 			{
-				rotationTime -= Time.deltaTime;
-				SetWheelRotationAngle(GetCurrentWheelRotationAngle() + 500 * Time.deltaTime);
+
+				rotationTime += Time.deltaTime;
+				float delta = EaseInOutCubic(rotationTime / m_RotationTargetTime);
+
+
+                SetWheelRotationAngle(startAngle + Mathf.Lerp(0, rotationTarget, delta));
 				await Task.Yield();
 			}
 
 			SetWheelRotationAngle(finalAngle);
 		}
+
+		private float EaseInOutCubic(float x)
+		{
+            return x < 0.5 ? 4 * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;
+
+        }
 
 		private float GetSegmentAngle(int index)
 		{

@@ -341,7 +341,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.6
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -576,6 +576,9 @@ MonoBehaviour:
   m_SegmentPrefab: {fileID: 6729718785434037696}
   m_SegmentsParent: {fileID: 8052810838602064327}
   m_RotationTransform: {fileID: 1647923843625624111}
+  m_Clockwise: 1
+  minRotationCycles: 2
+  rotationTargetTime: 2
 --- !u!114 &2981025706315831265
 MonoBehaviour:
   m_ObjectHideFlags: 0
