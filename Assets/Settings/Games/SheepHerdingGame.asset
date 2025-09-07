@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SheepHerdingGame
   m_EditorClassIdentifier: 
   GameName: Hubert
-  GameThumbnail: {fileID: 1150520300843018233, guid: 79cbb05b01283d84690888c225e90cb5, type: 3}
+  GameThumbnail: {fileID: 1150520300843018233, guid: 2c4f3e09ba4bc36458e364657e237c8f, type: 3}
   GameScreenPrefab: {fileID: 4565572825077663349, guid: cc8f4e05c8790394d8c56e9513783c9b, type: 3}
   RaceConfigs:
     Tracks:

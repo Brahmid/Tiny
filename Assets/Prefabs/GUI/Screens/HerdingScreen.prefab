@@ -311,6 +311,8 @@ MonoBehaviour:
   - {fileID: 423474259355797034}
   m_Track: {fileID: 117468597931182074}
   m_Text: {fileID: 4902556583487796815}
+  m_StandingSheep: {fileID: -2527514538258171686, guid: a62659d0deb6899469d152d805bf136c, type: 3}
+  m_RunningSheep: {fileID: 8091010042291742798, guid: ff414b87aecc8ce448e45e297335be26, type: 3}
 --- !u!1 &5929160781556059830
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,6 +554,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TrackPrefab: {fileID: 1869135547431152546}
   m_Field: {fileID: 118354367474863308}
+  m_RoundDuration: 5
+  m_RoundTime: 0
 --- !u!1 &9137082076203924360
 GameObject:
   m_ObjectHideFlags: 0
