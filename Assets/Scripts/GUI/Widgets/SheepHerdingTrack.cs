@@ -1,12 +1,15 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static SheepHerding.SheepHerdingWidget;
 
 public class SheepHerdingTrack : MonoBehaviour
 {
     [SerializeField] private Image m_Dog;
     [SerializeField] private Image[] m_Sheeps;
     [SerializeField] private Image m_Track;
+    [SerializeField] private TMP_Text m_Text;
 
     float m_Distance;
     float m_Moved = 0f;
@@ -53,5 +56,12 @@ public class SheepHerdingTrack : MonoBehaviour
     private float LerpOnTrack(float delta)
     {
         return Mathf.Lerp(-1 * m_Distance / 2, m_Distance / 2, delta);
+    }
+
+    internal void Setup(HerdingTrackConfig config)
+    {
+        m_Dog.sprite = config.Sprite;
+        m_Text.text = config.Text;
+
     }
 }

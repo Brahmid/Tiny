@@ -18,17 +18,14 @@ MonoBehaviour:
   RaceConfigs:
     Tracks:
     - WinPercent: 400
-      Color: {r: 0, g: 0, b: 0, a: 0}
-      Sprite: {fileID: 0}
+      Sprite: {fileID: 1480917699468073914, guid: 13395ea485a22d5478bbb4d90860d101, type: 3}
       Text: Hubert
       RandomWeight: 1
     - WinPercent: 0
-      Color: {r: 0, g: 0, b: 0, a: 0}
-      Sprite: {fileID: 0}
+      Sprite: {fileID: -4613920627165343308, guid: af57131b5cfdb634e89ee7a22e7a7078, type: 3}
       Text: Tess
       RandomWeight: 2
     - WinPercent: 0
-      Color: {r: 0, g: 0, b: 0, a: 0}
-      Sprite: {fileID: 0}
+      Sprite: {fileID: -7759690137244693145, guid: ec15b7f658913314aa4c8ed2dbeadd83, type: 3}
       Text: Whistle
       RandomWeight: 2

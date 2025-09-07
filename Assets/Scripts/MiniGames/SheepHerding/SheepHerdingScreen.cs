@@ -35,6 +35,8 @@ namespace SheepHerding
         public override void BindScreenData(SheepHerdingGame game)
         {
             base.BindScreenData(game);
+
+            m_field.Setup(game.Settings.RaceConfigs);
         }
 
         protected override async Task AnimateGameRound(SheepHerdingWidget.HerdingTrackConfig winResult)

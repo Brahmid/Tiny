@@ -14,8 +14,7 @@ namespace SheepHerding
         [Serializable]
         public class HerdingTrackConfig : IWinResult, IWeightRandomItem
         {
-            public int WinPercent;
-            public Color Color;
+            public int WinPercent;            
             public Sprite Sprite;
             public string Text;
             public float RandomWeight = 1f;
@@ -32,8 +31,32 @@ namespace SheepHerding
 
         }
 
-        List<HerdingTrackConfig> Tracks;
-        [SerializeField] SheepHerdingTrack[] m_tracks;
+
+        [SerializeField] private GameObject m_TrackPrefab;
+        [SerializeField] private RectTransform m_Field;
+
+        //private List<HerdingTrackConfig> m_Tracks;
+        private List<SheepHerdingTrack> m_tracks = new List<SheepHerdingTrack>();
+
+        public void Setup(SheepHerdingConfig config)
+        {
+            float spaceBetweenTracks = m_Field.rect.height/ config.Tracks.Count;
+            float offsetTracks = -m_Field.rect.height / 2f;
+
+            for (int index = 0; index < config.Tracks.Count; index++)
+            {
+                GameObject track = GameObject.Instantiate(m_TrackPrefab, m_Field);                
+                track.transform.localPosition = new Vector3(0, (index * spaceBetweenTracks + spaceBetweenTracks / 2f) + offsetTracks, 0);
+                SheepHerdingTrack script = track.GetComponent<SheepHerdingTrack>();
+                if (script != null)
+                {
+                    m_tracks.Add(script);
+                    script.Setup(config.Tracks[index]);
+                }
+               
+            }
+            m_TrackPrefab.SetActive(false);
+        }
 
         public async Task AnimateRace(int winIndex)
         {
@@ -52,7 +75,7 @@ namespace SheepHerding
 
             while (keepMoving)
             {
-                for (int i = 0; i < m_tracks.Length; i++)
+                for (int i = 0; i < m_tracks.Count; i++)
                 {
                     keepMoving &=  m_tracks[i].Move(speeds[i]*Time.deltaTime);
                 }
