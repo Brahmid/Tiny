@@ -577,8 +577,8 @@ MonoBehaviour:
   m_SegmentsParent: {fileID: 8052810838602064327}
   m_RotationTransform: {fileID: 1647923843625624111}
   m_Clockwise: 1
-  minRotationCycles: 2
-  rotationTargetTime: 2
+  m_MinRotationCycles: 2
+  m_RotationTargetTime: 2
 --- !u!114 &2981025706315831265
 MonoBehaviour:
   m_ObjectHideFlags: 0
